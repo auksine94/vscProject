@@ -1,0 +1,154 @@
+<div class="panel panel-default">
+
+  <div class="panel-heading">
+    <h1 style="text-align: center">Joys</h1><br>
+
+    <div class="row" [hidden]="!deleteMessage">
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4">
+        <div class="alert alert-info alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>Joy data deleted</strong>
+        </div>
+      </div>
+      <div class="col-sm-4"></div>
+    </div>
+
+  </div>
+
+  <div class="panel-body">
+    <table class="table table-hover table-sm" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+      <thead class="thead-light">
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Flag</th>
+          <th>Image</th>
+          <th style="text-align: center">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let joy of joys ">
+          <td>{{joy.joy_name}}</td>
+          <td>{{joy.joy_desc}}</td>
+          <td>{{joy.joy_flag}}</td>
+          <td><img [src]="joy.joy_img_url" 
+                alt="no image.. :(" 
+                class="img-responsive"
+                style="max-height: 40px"></td>
+          <td style="text-align: center">
+            <button (click)="updateJoy(joy.joy_id)" class='btn btn-warning' data-toggle="modal" data-target="#viewModal">View</button>&nbsp;
+            <button (click)="updateJoy(joy.joy_id)" class='btn btn-success' data-toggle="modal" data-target="#updateModal">Update</button>&nbsp;
+            <button (click)="deleteJoy(joy.joy_id)" class='btn btn-danger'>Delete</button>
+          </td>
+        </tr>
+      </tbody>
+      <br>
+    </table>
+  </div>
+
+</div>
+
+<!-- VIEW -->
+<div class="modal" id="viewModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form [formGroup]="joyUpdateForm">
+
+        <!-- Modal body -->
+        <div class="modal-body" *ngFor="let joy of joyList ">
+
+            <input type="hidden" class="form-control" formControlName="joy_id" [(ngModel)]="joy.joy_id">
+
+            <div class="form-group" style="text-align: right">
+              <h6>flag: {{ joy.joy_flag }}</h6>
+            </div>
+
+            <div class="form-group" >
+              <img [src]="joy.joy_img_url" 
+                alt="no image.. :(" 
+                class="img-responsive"
+                style="max-width: 460px">
+            </div>
+
+            <div class="form-group">
+              <h2>{{ joy.joy_name }}</h2>
+            </div>
+
+            <div class="form-group">
+              <h4>{{ joy.joy_desc }}</h4>
+            </div>
+
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="changeisUpdate()">Close</button>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- UPDATE -->
+<div class="modal" id="updateModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form [formGroup]="joyUpdateForm" #updjoy (ngSubmit)="updateJoyFinal(updjoy)">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <div [hidden]="isUpdated">
+            <h4 class="modal-title" style="text-align: center">Update Joy</h4>
+          </div>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" *ngFor="let joy of joyList ">
+          <div [hidden]="isUpdated">
+
+            <input type="hidden" class="form-control" formControlName="joy_id" [(ngModel)]="joy.joy_id">
+            <div class="form-group">
+              <label for="name">Joy name</label>
+              <input type="text" class="form-control" formControlName="joy_name" [(ngModel)]="joy.joy_name">
+            </div>
+
+            <div class="form-group">
+              <label for="name">Joy description</label>
+              <input type="text" class="form-control" formControlName="joy_desc" [(ngModel)]="joy.joy_desc">
+            </div>
+
+            <div class="form-group">
+              <label for="name">Joy flag</label>
+              <select class="form-control" formControlName="joy_flag" required [(ngModel)]="joy.joy_flag">
+                <option value="bTower" [selected]="'bTower' == joy.joy_flag">Box tower</option>
+                <option value="mountains" [selected]="'mountains' == joy.joy_flag">Mountaineering entertainment
+                </option>
+                <option value="tBuild" [selected]="'tBuild' == joy.joy_flag">Team building</option>
+                <option value="hikes" [selected]="'hikes' == joy.joy_flag">Hiking</option>
+                <option value="oGame" [selected]="'oGame' == joy.joy_flag">Orientation game</option>
+                <option value="hService" [selected]="'hService' == joy.joy_flag">High event service</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="name">Joy image URL</label>
+              <input type="text" class="form-control" formControlName="joy_img_url" [(ngModel)]="joy.joy_img_url">
+            </div>
+
+          </div>
+          <div [hidden]="!isUpdated">
+            <h4>Joy detail updated!</h4>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success" [hidden]="isUpdated">Update</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="changeisUpdate()">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
