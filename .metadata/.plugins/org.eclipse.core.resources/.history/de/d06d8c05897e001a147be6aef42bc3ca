@@ -1,0 +1,14 @@
+package service;
+
+import java.util.List;
+item
+import model.Joy;
+
+public interface Item_Service {
+
+//	public List<Joy> getJoys();
+	public boolean createJoy(Joy joy);
+//	public List<Joy> getJoyByID(Joy joy);
+//	public boolean updateJoy(Joy joy);
+//	public boolean deleteJoy(Joy joy);
+}

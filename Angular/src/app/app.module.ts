@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { JoyListComponent } from './joy-list/joy-list.component';
 import { AddJoyComponent } from './add-joy/add-joy.component';
+import { ItemsComponent } from './items/items.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { AddJoyComponent } from './add-joy/add-joy.component';
     HeaderComponent,
     JoyListComponent,
     AddJoyComponent,
+    ItemsComponent
   ],
   imports: [
     BrowserModule,

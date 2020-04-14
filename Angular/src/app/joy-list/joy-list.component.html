@@ -20,6 +20,7 @@
     <table class="table table-hover table-sm" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
       <thead class="thead-light">
         <tr>
+          <th>Id</th>
           <th>Name</th>
           <th>Description</th>
           <th>Flag</th>
@@ -29,6 +30,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let joy of joys ">
+          <td>{{joy.joy_id}}</td>
           <td>{{joy.joy_name}}</td>
           <td>{{joy.joy_desc}}</td>
           <td>{{joy.joy_flag}}</td>
@@ -39,7 +41,8 @@
           <td style="text-align: center">
             <button (click)="updateJoy(joy.joy_id)" class='btn btn-warning' data-toggle="modal" data-target="#viewModal">View</button>&nbsp;
             <button (click)="updateJoy(joy.joy_id)" class='btn btn-success' data-toggle="modal" data-target="#updateModal">Update</button>&nbsp;
-            <button (click)="deleteJoy(joy.joy_id)" class='btn btn-danger'>Delete</button>
+            <button (click)="deleteJoy(joy.joy_id)" class='btn btn-danger'>Delete</button>&nbsp;
+            <button (click)="addItemForm(joy.joy_id)" class='btn btn-secondary' data-toggle="modal" data-target="#addItemModal">Add item</button>&nbsp;
           </td>
         </tr>
       </tbody>
@@ -148,6 +151,42 @@
           <button type="submit" class="btn btn-success" [hidden]="isUpdated">Update</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="changeisUpdate()">Close</button>
         </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ADD ITEM -->
+<div class="modal" id="addItemModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form [formGroup]="itemSaveForm" #createitem (ngSubmit)="createItem(createItem)">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <div [hidden]="isUpdated">
+            <h4 class="modal-title" style="text-align: center">Add item</h4>
+          </div>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" formControlName="item_name" data-toggle="tooltip" data-placement="right" title="Enter name">
+          </div>
+          <div class="form-group">
+            <label for="name">Amount</label>
+            <input type="text" class="form-control" formControlName="item_amount" data-toggle="tooltip" data-placement="right" title="Enter amount">
+          </div>
+        </div>
+    
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success" [hidden]="isUpdated">Add</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="changeisUpdate()">Close</button>
+        </div>
+
       </form>
     </div>
   </div>

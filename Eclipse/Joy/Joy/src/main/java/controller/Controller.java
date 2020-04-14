@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import model.Joy;
 import service.Joy_Service;
 
+import model.Item;
+import service.Item_Service;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/api")
@@ -22,6 +25,8 @@ public class Controller {
 	
 	@Autowired
 	private Joy_Service joyService;
+	@Autowired
+	private Item_Service itemService;
 
 	@GetMapping("joys-list")
 	public List<Joy> alljoys() {
@@ -49,5 +54,10 @@ public class Controller {
 	public boolean deleteJoy(@PathVariable("joy_id") int joy_id, Joy joy) {
 		joy.setJoy_id(joy_id);
 		return joyService.deleteJoy(joy);
+	}
+	
+	@PostMapping("create-item")
+	public boolean createItem(@RequestBody Item item) {
+		return itemService.createItem(item);
 	}
 }

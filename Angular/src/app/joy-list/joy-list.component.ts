@@ -4,6 +4,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { JoyService } from '../joy.service';
 import { Joy } from '../joy';
+import { ItemService } from '../item.service';
+import { Item } from '../item';
 
 @Component({
   selector: 'app-joy-list',
@@ -11,7 +13,8 @@ import { Joy } from '../joy';
 })
 export class JoyListComponent implements OnInit {
 
-  constructor(private joyservice: JoyService) { }
+  constructor(private joyservice: JoyService,
+              private itemservice: ItemService) { }
 
   joysArray: any[] = [];
   dtOptions: DataTables.Settings = {};
@@ -22,6 +25,10 @@ export class JoyListComponent implements OnInit {
   deleteMessage = false;
   joyList: any;
   isUpdated = false;
+
+  submitted = false;
+  tempId: number;
+  item: Item = new Item();
 
   ngOnInit() {
     this.isUpdated = false;
@@ -38,6 +45,7 @@ export class JoyListComponent implements OnInit {
   }
 
   updateJoy(id: number) {
+    this.deleteMessage = false;
     this.joyservice.getJoy(id)
       .subscribe(
         data => {
@@ -90,6 +98,36 @@ export class JoyListComponent implements OnInit {
     this.isUpdated = false;
   }
 
+  // items
+  addItemForm(id: number) {
+    console.log("addItemForm");
+    this.submitted = false;
+    this.tempId = id;
+    this.itemSaveForm.reset();
+  }
+
+  itemSaveForm = new FormGroup({
+    item_name: new FormControl(),
+    item_amount: new FormControl()
+  });
+
+  createItem(createItem) {
+    console.log("createItem" + this.tempId);
+    this.item = new Item();
+    this.item.item_parent_id = this.tempId;
+    this.item.item_name = this.ItemName.value;
+    this.item.item_amount = this.ItemAmount.value;
+    this.submitted = true;
+    this.create();
+  }
+
+  create() {
+    console.log(this.item);
+    this.itemservice.createItem(this.item)
+      .subscribe(data => console.log(data), error => console.log(error));
+    this.item = new Item();
+  }
+
   get JoyId() {
     return this.joyUpdateForm.get('joy_id');
   }
@@ -108,5 +146,13 @@ export class JoyListComponent implements OnInit {
   
   get JoyImgUrl() {
     return this.joyUpdateForm.get('joy_img_url');
+  }
+
+  get ItemName() {
+    return this.itemSaveForm.get('item_name');
+  }  
+  
+  get ItemAmount() {
+    return this.itemSaveForm.get('item_amount');
   }
 }
