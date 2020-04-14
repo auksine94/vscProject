@@ -16,13 +16,13 @@ public class Item_DAO_Imp implements Item_DAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	@Override
-	public List<Item> getItems() {
-		Session currentSession = sessionFactory.getCurrentSession();
-		Query<Item> query = currentSession.createQuery("from Item", Item.class);
-		List<Item> list = query.getResultList();
-		return list;
-	}
+//	@Override
+//	public List<Joy> getJoys() {
+//		Session currentSession = sessionFactory.getCurrentSession();
+//		Query<Joy> query = currentSession.createQuery("from Joy", Joy.class);
+//		List<Joy> list = query.getResultList();
+//		return list;
+//	}
 	
 	@Override
 	public boolean createItem(Item item) {

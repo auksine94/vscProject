@@ -29,7 +29,7 @@ public class Controller {
 	private Item_Service itemService;
 
 	@GetMapping("joys-list")
-	public List<Joy> allJoys() {
+	public List<Joy> alljoys() {
 		return joyService.getJoys();
 	}
 	
@@ -39,7 +39,7 @@ public class Controller {
 	}
 
 	@GetMapping("joy/{joy_id}")
-	public List<Joy> allJoyById(@PathVariable("joy_id") int joy_id, Joy joy) {
+	public List<Joy> alljoyByID(@PathVariable("joy_id") int joy_id, Joy joy) {
 		joy.setJoy_id(joy_id);
 		return joyService.getJoyByID(joy);
 	}
@@ -54,11 +54,6 @@ public class Controller {
 	public boolean deleteJoy(@PathVariable("joy_id") int joy_id, Joy joy) {
 		joy.setJoy_id(joy_id);
 		return joyService.deleteJoy(joy);
-	}
-	
-	@GetMapping("items")
-	public List<Item> allItems() {
-		return itemService.getItems();
 	}
 	
 	@PostMapping("create-item")

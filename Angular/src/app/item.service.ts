@@ -12,6 +12,10 @@ export class ItemService {
 
   constructor(private http: HttpClient) { }
 
+  getItems(): Observable<any> {
+    return this.http.get(`${this.baseUrl}` + 'items');
+  }
+
   createItem(item: object): Observable<object> {
     return this.http.post(`${this.baseUrl}` + 'create-item', item);
   }

@@ -16,10 +16,10 @@ public class Item_Service_Imp implements Item_Service {
 	@Autowired
 	private Item_DAO itemDao;
 
-	@Override
-	public List<Item> getItems() {
-		return itemDao.getItems();
-	}
+//	@Override
+//	public List<Joy> getJoys() {
+//		return joyDao.getJoys();
+//	}
 	
 	@Override
 	public boolean createItem(Item item) {

@@ -13,7 +13,7 @@ import { Item } from '../item';
 })
 export class JoyListComponent implements OnInit {
 
-  constructor(private joyservice: JoyService,
+  constructor(private joyService: JoyService,
               private itemservice: ItemService) { }
 
   joysArray: any[] = [];
@@ -38,7 +38,7 @@ export class JoyListComponent implements OnInit {
       lengthMenu: [[3, 5, 7, -1], [3, 5, 7, "all"]],
       processing: true
     };
-    this.joyservice.getJoyList().subscribe(data => {
+    this.joyService.getJoyList().subscribe(data => {
       this.joys = data;
       this.dtTrigger.next();
     })
@@ -46,7 +46,7 @@ export class JoyListComponent implements OnInit {
 
   updateJoy(id: number) {
     this.deleteMessage = false;
-    this.joyservice.getJoy(id)
+    this.joyService.getJoy(id)
       .subscribe(
         data => {
           this.joyList = data
@@ -55,12 +55,12 @@ export class JoyListComponent implements OnInit {
   }
 
   deleteJoy(id: number) {
-    this.joyservice.deleteJoy(id)
+    this.joyService.deleteJoy(id)
       .subscribe(
         data => {
           console.log(data);
           this.deleteMessage = true;
-          this.joyservice.getJoyList().subscribe(data => {
+          this.joyService.getJoyList().subscribe(data => {
             this.joys = data
           })
         },
@@ -82,12 +82,11 @@ export class JoyListComponent implements OnInit {
     this.joy.joy_desc = this.JoyDescription.value;
     this.joy.joy_flag = this.JoyFlag.value;
     this.joy.joy_img_url = this.JoyImgUrl.value;
-    console.log(this.JoyFlag.value);
 
-    this.joyservice.updateJoy(this.joy.joy_id, this.joy).subscribe(
+    this.joyService.updateJoy(this.joy.joy_id, this.joy).subscribe(
       data => {
         this.isUpdated = true;
-        this.joyservice.getJoyList().subscribe(data => {
+        this.joyService.getJoyList().subscribe(data => {
           this.joys = data
         })
       },
@@ -98,9 +97,7 @@ export class JoyListComponent implements OnInit {
     this.isUpdated = false;
   }
 
-  // items
   addItemForm(id: number) {
-    console.log("addItemForm");
     this.submitted = false;
     this.tempId = id;
     this.itemSaveForm.reset();
@@ -112,7 +109,6 @@ export class JoyListComponent implements OnInit {
   });
 
   createItem(createItem) {
-    console.log("createItem" + this.tempId);
     this.item = new Item();
     this.item.item_parent_id = this.tempId;
     this.item.item_name = this.ItemName.value;
@@ -122,7 +118,6 @@ export class JoyListComponent implements OnInit {
   }
 
   create() {
-    console.log(this.item);
     this.itemservice.createItem(this.item)
       .subscribe(data => console.log(data), error => console.log(error));
     this.item = new Item();

@@ -57,7 +57,7 @@ public class Controller {
 	}
 	
 	@GetMapping("items")
-	public List<Item> allItems() {
+	public List<Item> allitems() {
 		return itemService.getItems();
 	}
 	
