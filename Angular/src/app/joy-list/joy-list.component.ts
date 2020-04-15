@@ -58,7 +58,7 @@ export class JoyListComponent implements OnInit {
     this.joyService.deleteJoy(id)
       .subscribe(
         data => {
-          console.log(data);
+          console.log(data + "aaa");
           this.deleteMessage = true;
           this.joyService.getJoyList().subscribe(data => {
             this.joys = data

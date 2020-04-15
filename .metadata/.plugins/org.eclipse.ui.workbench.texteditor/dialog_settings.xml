@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="joy_img_url"/>
+		<item key="selection" value="deleteJoy"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="true"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="deleteJoy"/>
+			<item value="delete-joy"/>
 			<item value="joy_img_url"/>
 			<item value="email"/>
 			<item value="branch"/>

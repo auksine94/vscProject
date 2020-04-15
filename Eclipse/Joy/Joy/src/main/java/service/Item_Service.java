@@ -10,5 +10,5 @@ public interface Item_Service {
 	public boolean createItem(Item item);
 //	public List<Joy> getJoyByID(Joy joy);
 //	public boolean updateJoy(Joy joy);
-//	public boolean deleteJoy(Joy joy);
+	public boolean deleteItem(Item item);
 }

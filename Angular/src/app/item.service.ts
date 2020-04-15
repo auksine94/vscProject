@@ -19,4 +19,12 @@ export class ItemService {
   createItem(item: object): Observable<object> {
     return this.http.post(`${this.baseUrl}` + 'create-item', item);
   }
+
+  deleteItem(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/delete-item/${id}`, { responseType: 'text' });
+  }
+
+  getTotals(): Observable<any> {
+    return this.http.get(`${this.baseUrl}` + 'totals');
+  }
 }                                           

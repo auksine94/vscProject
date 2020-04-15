@@ -1,0 +1,13 @@
+package model;
+
+public class Total {
+	
+	private String item_name;
+	private int item_total;
+	
+	public Total(String item_name, int item_total) {
+		this.item_name = item_name;
+		this.item_total = item_total;
+	}
+	
+}

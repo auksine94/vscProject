@@ -1,0 +1,8 @@
+package model;
+
+public class Total {
+	
+	private String item_name;
+	private int item_total;
+
+}

@@ -1,5 +1,5 @@
 package dao;
-
+//data access object
 import java.util.List;
 
 import model.Joy;

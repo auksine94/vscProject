@@ -36,8 +36,8 @@ public class Item_Service_Imp implements Item_Service {
 //		return joyDao.updateJoy(joy);
 //	}
 
-//	@Override
-//	public boolean deleteJoy(Joy joy) {
-//		return joyDao.deleteJoy(joy);
-//	}
+	@Override
+	public boolean deleteItem(Item item) {
+		return itemDao.deleteItem(item);
+	}
 }

@@ -57,15 +57,15 @@ public class Item_DAO_Imp implements Item_DAO {
 //		return status;
 //	}
 //	
-//	@Override
-//	public boolean deleteJoy(Joy joy) {
-//		boolean status = false;
-//		try {
-//			sessionFactory.getCurrentSession().delete(joy);
-//			status = true;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return status;
-//	}
+	@Override
+	public boolean deleteItem(Item item) {
+		boolean status = false;
+		try {
+			sessionFactory.getCurrentSession().delete(item);
+			status = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return status;
+	}
 }
