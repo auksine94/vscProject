@@ -28,14 +28,12 @@
       </tr>
     </tbody>
 
-    <br>
   </table>
 </div>
 
 
 
 <div class="panel-heading">
-  <br>
   <h3>Totals:</h3>
   <br>
 </div>
@@ -51,10 +49,10 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let t of totals; let t = index">
-        <td>{{ i }} + 1</td>
-        <td>{{ t.item_name }}</td>
-        <td>{{ t.item_amount }}</td>
+      <tr *ngFor="let total of totals; let j = index">
+        <td>{{ j }} + 1</td>
+        <td>{{ total.item_name }}</td>
+        <td>{{ total.item_amount }}</td>
       </tr>
     </tbody>
 

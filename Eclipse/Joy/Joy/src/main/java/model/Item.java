@@ -16,6 +16,13 @@ public class Item {
 	private String item_name;
 	private int item_amount;
 	
+	public Item() { }
+	
+	public Item(String key, Integer value) {
+		this.item_name = key;
+		this.item_amount = value;
+	}
+	
 	public int getItem_id() {
 		return item_id;
 	}

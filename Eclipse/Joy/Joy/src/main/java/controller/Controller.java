@@ -1,7 +1,11 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,8 +22,6 @@ import service.Joy_Service;
 
 import model.Item;
 import service.Item_Service;
-
-import model.Total;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -92,35 +94,62 @@ public class Controller {
 	@GetMapping("totals")
 	public List<Item> allTotals() {
 		List<Item> allItems = allItems();
-		List<Item> totalItems = allItems();
-//		List<Total> totals = new ArrayList<Total>();
+//		1
+		List<Item> groupedWithStream = groupWithStream(allItems);
+//		2
+        List<Item> groupedBasic = groupBasic(allItems);
+//		3        
+        List<Item> calculatedList = calculateItems(allItems);
 		
-		for (Item a : allItems) {
-			for (Item t : totalItems) {
-				
-			}
-		}		
-				
-//				if (t.getItem_name().contentEquals(a.getItem_name())) {
-//					totalItems.remove(t);
-//					System.out.println(a.getItem_name() + "   " + t.getItem_name());
-//				}
-			
-//			if (totals.isEmpty()) {
-//				totals.add(new Total(all.getItem_name(), all.getItem_amount()));
-//				System.out.println("a");
-//			}
-//			
-//			for (Total t : totals) {
-//				
-//				if(!all.getItem_name().equals(t.getItem_name())) {
-//					totals.add(new Total(all.getItem_name(), all.getItem_amount()));
-//					System.out.println("b");
-//				}
-//			
-//			}
-
-		System.out.println(totalItems);
-		return totalItems;
+		
+		return calculatedList;
 	}
+//	1
+    private static List<Item> groupWithStream(List<Item> items) {
+        return items
+                .stream()
+                .collect(Collectors.groupingBy(Item::getItem_name, Collectors.summingInt(Item::getItem_amount)))
+                .entrySet()
+                .stream()
+                .map(entry -> new Item(entry.getKey(), entry.getValue()))
+                .collect(Collectors.toList());
+    }
+    
+// 2   
+    private static List<Item> groupBasic(List<Item> items) {
+        Map<String, Integer> groupedNames = groupByName(items);
+        
+        return createItems(groupedNames);
+    }
+
+    private static Map<String, Integer> groupByName(List<Item> items) {
+        Map<String, Integer> groupedNames = new HashMap<>();
+        for (Item item : items) {
+            int numberOfItems = groupedNames.getOrDefault(item.getItem_name(), 0);
+            groupedNames.put(item.getItem_name(), numberOfItems + item.getItem_amount());
+        }
+        return groupedNames;
+    }
+
+    private static List<Item> createItems(Map<String, Integer> grouped) {
+        List<Item> groupedItems = new LinkedList<>();
+        for (Map.Entry<String, Integer> entry : grouped.entrySet()) {
+            groupedItems.add(new Item(entry.getKey(), entry.getValue()));
+        }
+        return groupedItems;
+    }
+	
+//	3
+    public static List<Item> calculateItems(List<Item> items) {
+        Map<String, Integer> calculatedItems = new HashMap<>();
+        for (Item item : items) {
+            if (calculatedItems.containsKey(item.getItem_name())) {
+                calculatedItems.put(item.getItem_name(), calculatedItems.get(item.getItem_name()) + item.getItem_amount());
+            }
+            else {
+                calculatedItems.put(item.getItem_name(), item.getItem_amount());
+            }
+        }
+        return createItems(calculatedItems);
+    }
 }
