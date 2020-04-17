@@ -22,7 +22,6 @@ export class ItemsComponent implements OnInit {
     this.itemService.getTotals().subscribe(data => {
       this.totals = data;
     })
-
   }
 
   deleteItem(id: number) {
@@ -35,9 +34,11 @@ export class ItemsComponent implements OnInit {
           })
         },
         error => console.log(error));
-        
-    this.itemService.getTotals().subscribe(data => {
-      this.totals = data;
-    })
+
+    // this.itemService.getTotals().subscribe(data => {
+    //   this.totals = data;
+    // })
+    this.ngOnInit();
+
   }
 }
